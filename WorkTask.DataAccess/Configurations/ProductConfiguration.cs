@@ -15,7 +15,7 @@ namespace WorkTask.DataAccess.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x=> x.Price);
-            builder.Property(x=> x.Name).HasMaxLength(2000);
+            builder.Property(x => x.Name);
         }
     }
 }

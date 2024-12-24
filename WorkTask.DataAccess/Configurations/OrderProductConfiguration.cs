@@ -15,9 +15,7 @@ namespace WorkTask.DataAccess.Configurations
         {
             builder.HasKey(x => new { x.ProductId, x.OrderId });
             builder.HasOne(x => x.Product).WithOne().HasForeignKey<OrderProduct>(x => x.ProductId);
-            //builder.HasOne(x => x.Order).WithMany(x=> x.Products).HasForeignKey(x => x.OrderId);
             builder.Property(x => x.Quantity);
-            //builder.Property(x=> x.ProductId);
         }
     }
 }

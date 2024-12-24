@@ -16,7 +16,7 @@ namespace WorkTask.DataAccess.Configurations
             builder.Property(x=> x.FirstName).HasMaxLength(1000);
             builder.Property(x=> x.LastName).HasMaxLength(1000);
             builder.Property(x => x.MiddleName).HasMaxLength(1000);
-            builder.Property(x => x.Email).HasMaxLength(1000);
+            builder.HasAlternateKey(x => x.Email);
         }
     }
 }

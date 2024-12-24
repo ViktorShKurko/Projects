@@ -9,6 +9,7 @@ namespace Domain.Models
     public class Order
     {
         public  long Id { get; set; }
+        public long InnerId { get; set; }
         public required DateTime Reistered { get; set; }
         public decimal Sum { get; set; } // > 0
         public long UserId { get; set; }

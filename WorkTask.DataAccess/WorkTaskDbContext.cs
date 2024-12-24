@@ -1,6 +1,4 @@
-﻿using Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using WorkTask.DataAccess.Configurations;
 
 namespace WorkTask.DataAccess
@@ -24,6 +22,7 @@ namespace WorkTask.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.EnableSensitiveDataLogging(true);
             base.OnConfiguring(optionsBuilder);
         }
     }
