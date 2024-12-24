@@ -3,6 +3,7 @@ using Infrastucture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TestWorkTask.Configurer;
 using TestWorkTask.Helpers;
 using TestWorkTask.Models;
 using WorkTask.Application.Order.Repositories;
@@ -35,20 +36,8 @@ internal class Program
         var orders = XmlHelper.Deserialize<OrdersModel>(resource);
         Console.WriteLine(orders);
 
-        var configuration = new ConfigurationBuilder();
-        var path = Directory.GetCurrentDirectory();
-        configuration.SetBasePath(Directory.GetCurrentDirectory());
-        configuration.AddJsonFile("appsettings.json");
-        var config = configuration.Build();
-
-        IServiceCollection services = new ServiceCollection();
-        services.AddDbContext<WorkTaskDbContext>(options => options.UseSqlServer(config.GetConnectionString("SecondConnection")));
-        services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
-        services.AddTransient<IOrderRepository, OrderRepository>();
-        services.AddTransient<IOrderService, OrderService>();
-
-        using var serviceProvider = services.BuildServiceProvider();
-        var orderService = serviceProvider.GetService<IOrderService>();
+        var servicesProvider = ServiceConfiguration.Build();
+        var orderService = servicesProvider.GetService<IOrderService>();
 
         foreach (var order in orders.Orders)
         {
