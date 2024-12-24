@@ -10,9 +10,9 @@ namespace WorkTask.Application.Order.Services
     public interface IOrderService
     {
         /// <summary>
-        /// Добавление нового заказа.
+        /// Создание нового заказа.
         /// </summary>
-        /// <param name="order">Данные заказа.</param>
+        /// <param name="order">Данные о заказе.</param>
         /// <returns>Идентификатор заказа.</returns>
         Task<long> CreateAsync(OrderModel order,CancellationToken cancellationToken);
     }

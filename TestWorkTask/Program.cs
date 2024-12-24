@@ -1,10 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Domain.Models;
 using Infrastucture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Xml.Linq;
 using TestWorkTask.Helpers;
 using TestWorkTask.Models;
 using WorkTask.Application.Order.Repositories;
@@ -54,8 +52,8 @@ internal class Program
 
         foreach (var order in orders.Orders)
         {
-            long d =  orderService.CreateAsync(order, new CancellationToken()).Result;
-            Console.WriteLine(d);
+            long createdOrderId =  orderService.CreateAsync(order, new CancellationToken()).Result;
+            Console.WriteLine(createdOrderId);
         }
     }
 }
