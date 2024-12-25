@@ -5,10 +5,12 @@ namespace TestWorkTask.Models
     [XmlRoot("user")]
     public class UserModel
     {
+        public long Id { get; set; }
+
         [XmlElement("fio")]
-        public required string FullName { get; set; }
+        public string FullName { get; set; }
 
         [XmlElement("email")]
-        public required string Email { get; set; }
+        public string Email { get; set; }
     }
 }

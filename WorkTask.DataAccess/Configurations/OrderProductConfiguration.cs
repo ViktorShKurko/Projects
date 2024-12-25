@@ -14,7 +14,6 @@ namespace WorkTask.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<OrderProduct> builder)
         {
             builder.HasKey(x => new { x.ProductId, x.OrderId });
-            builder.HasOne(x => x.Product).WithOne().HasForeignKey<OrderProduct>(x => x.ProductId);
             builder.Property(x => x.Quantity);
         }
     }

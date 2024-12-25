@@ -17,13 +17,12 @@ namespace Infrastucture
             DbSet = dbContext.Set<TEntity>();
         }
 
-        public async Task<long> AddAsync(TEntity entity, CancellationToken cancellationToken)
+        public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
         {
             await DbSet.AddAsync(entity, cancellationToken);
-            await DbContext.SaveChangesAsync();
-
-            return 0;
+            await DbContext.SaveChangesAsync(cancellationToken);
         }
+
         public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
         {
             DbSet.Update(entity);
@@ -37,21 +36,24 @@ namespace Infrastucture
             await DbContext.SaveChangesAsync(cancellationToken);
         }
 
+        public async Task AddRangeAsync(ICollection<TEntity> entities) 
+        {
+            await DbSet.AddRangeAsync(entities);
+        }
+
         public IQueryable<TEntity> GetAll()
         {
             return DbSet;
         }
-
-        public async Task<TEntity> GetByIdAsync(long Id, CancellationToken cancellationToken)
-        {
-            return await DbSet.FindAsync(Id, cancellationToken);
-        }
-
         public IQueryable<TEntity> GetByPredicate(Expression<Func<TEntity,bool>> predicat)
         {
            // var expression = Expression.Lambda<Func<TEntity, bool>>(Expression.Call(predicat.Method));
             return DbSet.Where(predicat);
         }
 
+        public async Task<TEntity> GetByIdAsync(long Id, CancellationToken cancellationToken)
+        {
+            return await DbSet.FindAsync(Id, cancellationToken);
+        }
     }
 }

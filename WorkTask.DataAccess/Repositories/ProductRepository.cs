@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Infrastucture;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,24 +20,53 @@ namespace WorkTask.DataAccess.Repositories
             _repository = repository;
         }
 
-        public Task<long> AddAsync(ProductModel product)
+        public async Task<long> AddAsync(ProductModel product)
         {
-            throw new NotImplementedException();
-        }
+            Product newProduct = new Product
+            {
+                Name = product.Name,
+                Price = product.Price,
+            };
 
-        public Task DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+            await _repository.AddAsync(newProduct,new CancellationToken());
 
-        public Task<ProductModel> GetProductByIdAsync(int id)
-        {
-            throw new NotImplementedException();
+            return newProduct.Id;
         }
-
         public Task UpdateAsync(ProductModel product)
         {
             throw new NotImplementedException();
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var isExist = _repository.GetAll().Any(x=> x.Id == id);
+
+            if (isExist)
+               await _repository.DeleteAsync(id, new CancellationToken());
+        }
+
+        public async Task<ProductModel> GetProductByIdAsync(int id)
+        {
+            ProductModel? productDto = null;
+            var product = await _repository.GetByIdAsync(id, new CancellationToken());
+            if (product != null)
+            {
+                productDto = new ProductModel 
+                { 
+                    Id = id,
+                    Name = product.Name,
+                    Price = product.Price,
+
+                };
+            }
+
+            return productDto;
+        }
+
+        public async Task<long?> GetProductIdByName(string name)
+        {
+            return await _repository.GetAll().Where(p=> p.Name.ToLower() == name.ToLower()).Select(x=> x.Id).FirstOrDefaultAsync();
+        }
+
     }
 }

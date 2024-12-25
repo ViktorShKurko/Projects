@@ -36,7 +36,7 @@ namespace Infrastucture
         /// <param name="entity">Сущность.</param>
         /// <param name="cancellationToken">Токен отмены.</param>
         /// <returns></returns>
-        Task<long> AddAsync(TEntity entity, CancellationToken cancellationToken);
+        Task AddAsync(TEntity entity, CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление.

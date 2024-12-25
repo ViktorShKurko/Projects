@@ -11,35 +11,33 @@ namespace WorkTask.Application.Order.Repositories
 
     public interface IOrderRepository
     {
-        //IQueryable<Order> GetAll();
-
         /// <summary>
-        /// Добавить заказ
+        /// Добавить заказ.
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="model">Данные о заказе.</param>
+        /// <returns>Идентификатор заказа</returns>
         Task<long> AddAsync(OrderModel model);
 
         /// <summary>
         /// Обновить данные заказа.
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="model">Данные о заказе.</param>
         /// <returns></returns>
         Task UpdateAsync(OrderModel model);
 
         /// <summary>
         /// Удалить заказ.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Идентификатор заказа.</param>
         /// <returns></returns>
         Task DeleteAsync(long id);
 
         /// <summary>
-        /// Получить по внешнему идентификатору.
+        /// Возвращает заказ по идентификатору.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Идентификатор.</param>
         /// <returns></returns>
-        Task<OrderModel> GetByInnerId(long id);
+        Task<OrderModel> GetByIdAsync(long id);
     }
 }
                                                                                                                                             

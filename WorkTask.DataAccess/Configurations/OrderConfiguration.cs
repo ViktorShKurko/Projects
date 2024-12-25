@@ -8,7 +8,7 @@ namespace WorkTask.DataAccess.Configurations
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Order> builder)
         {
             builder.HasKey(x=> x.Id);
-            builder.HasAlternateKey(x => x.InnerId);
+            builder.Property(x=> x.Id).ValueGeneratedNever();
             builder.Property(x => x.Sum);
             builder.Property(x => x.Reistered);
             builder.HasOne(x=> x.User).WithMany(x=> x.Orders).HasForeignKey(x => x.UserId).IsRequired();

@@ -13,7 +13,7 @@ namespace TestWorkTask.Configurer
     {
         public static IServiceProvider Build() 
         {
-            // TODO: Вынести логику с получением строки подключения
+            // TODO: Вынести логику с получением строки подключения, вывести в отдельный проект чтоб убрать множество зависимостей с хостового проекта
             var configuration = new ConfigurationBuilder();
             var path = Directory.GetCurrentDirectory();
             configuration.SetBasePath(Directory.GetCurrentDirectory());
