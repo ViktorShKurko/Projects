@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 using TestWorkTask.Configurer;
 using TestWorkTask.Helpers;
 using TestWorkTask.Models;
@@ -9,34 +10,31 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        string resource = @"
-                            <orders>	
-                                <order>
-                                    <no>122</no>
-                                    <reg_date>2018.01.09</reg_date>
-                                    <sum>126065.05</sum>
-                                    <product>
-                                        <quantity>3</quantity>
-                                        <name>Xiomi 12X</name>
-                                        <price>42000.75</price>
-                                    </product>
-                                    <user>
-                                        <fio>Петров Виктор Семенович</fio>
-                                        <email>xyz@email.com</email>
-                                    </user>
-                                </order>
-                            </orders>";
+        string path = Path.Combine(Directory.GetCurrentDirectory(), @"TestDataRes\TestData.xml");
 
-        var orders = XmlHelper.Deserialize<OrdersModel>(resource);
+        if (!File.Exists(path)) 
+        {
+            Console.WriteLine("file not found");
+            return;
+        }
+
+        string data = File.ReadAllText(path);
+        var orders = XmlHelper.Deserialize<OrdersModel>(data);
         Console.WriteLine(orders);
 
         var servicesProvider = ServiceConfiguration.Build();
         var orderService = servicesProvider.GetService<IOrderService>();
 
-        foreach (var order in orders.Orders)
-        {
-            long createdOrderId = orderService.CreateAsync(order, new CancellationToken()).Result;
-            Console.WriteLine(createdOrderId);
-        }
+        var sw = new Stopwatch();
+        sw.Start();
+        var d = orderService.CreateOrdersAsync(orders.Orders).Result;
+        sw.Stop();
+        Console.WriteLine(sw.Elapsed);
+        //foreach (var order in orders.Orders)
+        //{
+        //    long createdOrderId = orderService.CreateAsync(order, new CancellationToken()).Result;
+
+        //    Console.WriteLine(createdOrderId);
+        //}
     }
 }

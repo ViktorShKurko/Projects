@@ -1,8 +1,8 @@
 ﻿using Domain.Models;
 using Infrastucture;
-using Microsoft.EntityFrameworkCore;
 using TestWorkTask.Models;
 using WorkTask.Application.Order.Repositories;
+using WorkTask.DataAccess.Mappers;
 
 
 namespace WorkTask.DataAccess.Repositories
@@ -16,43 +16,18 @@ namespace WorkTask.DataAccess.Repositories
             _repository = repository;
         }
 
-        public async Task<long> AddAsync(OrderModel model)
+        public async Task<long> AddAsync(OrderModel orderDto)
         {
-            Order order = await _repository.GetByIdAsync(model.Id, new CancellationToken());
+            Order order = await _repository.GetByIdAsync(orderDto.Id, new CancellationToken());
 
             if (order == null)
             {
-                var names = model.User.FullName.Split(' '); // TODO Validation models fio, mail in Application layer
-                order = new Order
-                {
-                    Id = model.Id,
-                    Reistered = Convert.ToDateTime(model.CreatAt),
-                    Products = new List<OrderProduct>(),
-                    Sum = model.Sum,
-                    User = new User
-                    {
-                        Email = model.User.Email,
-                        FirstName = names[1],
-                        LastName = names[0],
-                        MiddleName = names[2]
-                    }
-                };
-
-                foreach (var product in model.Products)
-                {
-                    order.Products.Add(new OrderProduct
-                    {
-                        Quantity = product.Quantity,
-                        Product = new Product { Name = product.Name, Price = product.Price }
-                    });
-                }
-
+                order = OrderMapper.ToOrder(orderDto);
                 await _repository.AddAsync(order, new CancellationToken());
             }
 
-            return model.Id;
+            return orderDto.Id;
         }
-
 
         public async Task<OrderModel> GetByIdAsync(long id)
         {
@@ -66,12 +41,12 @@ namespace WorkTask.DataAccess.Repositories
             return orderModel;
         }
 
-        public async Task UpdateAsync(OrderModel model)
+        public async Task UpdateAsync(OrderModel orderDto)
         {
-            var order = await _repository.GetByIdAsync(model.Id, new CancellationToken());
-            if (order == null) 
+            var order = await _repository.GetByIdAsync(orderDto.Id, new CancellationToken());
+            if (order != null) 
             {
-               // await _repository.UpdateAsync() // To order
+                await _repository.UpdateAsync(OrderMapper.ToOrder(orderDto), new CancellationToken()); // To order
             }
         }
 
@@ -83,6 +58,28 @@ namespace WorkTask.DataAccess.Repositories
             {
               await _repository.DeleteAsync(id,new CancellationToken());
             }
+        }
+
+        public async Task AddRangeAsync(ICollection<OrderModel> orders)
+        {
+            var ordersIds = orders.Select(x => x.Id).ToList();
+            var existing = _repository.GetAll().Where(x => ordersIds.Contains(x.Id)).Select(x => x.Id).ToList();
+            var newOrders = new List<Order>();
+
+            foreach (var orderDto in orders.Where(x => !existing.Contains(x.Id)).ToList())
+            {   
+                var newOrder = OrderMapper.ToOrder(orderDto);
+                newOrders.Add(newOrder);
+            }
+
+            await _repository.AddRangeAsync(newOrders);
+        }
+
+        public ICollection<OrderModel> GetByIds(ICollection<long> ordesId)
+        {
+            var existOrders = _repository.GetAll().Where(x => ordesId.Contains(x.Id)).ToList();
+
+            return null;
         }
     }
 }

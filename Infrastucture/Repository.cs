@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace Infrastucture
 {
@@ -39,6 +40,7 @@ namespace Infrastucture
         public async Task AddRangeAsync(ICollection<TEntity> entities) 
         {
             await DbSet.AddRangeAsync(entities);
+            await DbContext.SaveChangesAsync(new CancellationToken());
         }
 
         public IQueryable<TEntity> GetAll()

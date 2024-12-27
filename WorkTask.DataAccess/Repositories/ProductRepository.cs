@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestWorkTask.Models;
 using WorkTask.AppServices.Product.Repositories;
+using WorkTask.DataAccess.Mappers;
 
 namespace WorkTask.DataAccess.Repositories
 {
@@ -22,19 +23,22 @@ namespace WorkTask.DataAccess.Repositories
 
         public async Task<long> AddAsync(ProductModel product)
         {
-            Product newProduct = new Product
-            {
-                Name = product.Name,
-                Price = product.Price,
-            };
+            Product newProduct = ProductMapper.ToProduct(product);
 
             await _repository.AddAsync(newProduct,new CancellationToken());
 
             return newProduct.Id;
         }
-        public Task UpdateAsync(ProductModel product)
+
+        public async Task UpdateAsync(ProductModel product)
         {
-            throw new NotImplementedException();
+            var isExist = _repository.GetAll().Any(x => x.Id == product.Id);
+
+            if (isExist)
+            {
+                var productDomain = ProductMapper.ToProduct(product);
+                await _repository.UpdateAsync(productDomain, new CancellationToken());
+            }
         }
 
         public async Task DeleteAsync(int id)
@@ -47,17 +51,11 @@ namespace WorkTask.DataAccess.Repositories
 
         public async Task<ProductModel> GetProductByIdAsync(int id)
         {
-            ProductModel? productDto = null;
+            ProductModel productDto = null;
             var product = await _repository.GetByIdAsync(id, new CancellationToken());
             if (product != null)
             {
-                productDto = new ProductModel 
-                { 
-                    Id = id,
-                    Name = product.Name,
-                    Price = product.Price,
-
-                };
+                productDto = ProductMapper.ToProductDto(product);
             }
 
             return productDto;
@@ -68,5 +66,32 @@ namespace WorkTask.DataAccess.Repositories
             return await _repository.GetAll().Where(p=> p.Name.ToLower() == name.ToLower()).Select(x=> x.Id).FirstOrDefaultAsync();
         }
 
+        public async Task AddRangeAsync(ICollection<ProductModel> productsDto)
+        {
+            var productDisctincts = productsDto.GroupBy(x => x.Name).ToList();
+            var existing = _repository.GetAll().Where(x => productDisctincts.Select(n=> n.Key).Contains(x.Name)).Select(x => new { x.Id, x.Name }).ToList();
+            var newProductsDto = productDisctincts.Where(x => !existing.Any(e => e.Name == x.Key)).Select(x=> x.FirstOrDefault()).ToList();
+            var products = MapProductsList(newProductsDto);
+
+            await _repository.AddRangeAsync(products);
+
+            var productsIds = existing.Concat(products.Select(x => new { x.Id, x.Name }).ToList());
+            foreach (var product in productsDto)
+            {
+                var productId = productsIds.FirstOrDefault(x => x.Name == product.Name);
+                product.Id = productId.Id;
+            }
+        }
+
+        private ICollection<Product> MapProductsList(ICollection<ProductModel> productsDto)
+        {
+            var products = new List<Product>();
+            foreach (var product in productsDto)
+            {
+                products.Add(ProductMapper.ToProduct(product));
+            }
+
+            return products;
+        }
     }
 }

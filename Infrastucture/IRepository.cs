@@ -53,5 +53,12 @@ namespace Infrastucture
         /// <param name="cancellationToken">Токен отмены.</param> 
         /// <returns></returns>
         Task DeleteAsync(long id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Добавление списка.
+        /// </summary>
+        /// <param name="entities">Список добавляемых элементов.</param>
+        /// <returns></returns>
+        Task AddRangeAsync(ICollection<TEntity> entities);
     }
 }

@@ -17,6 +17,7 @@ namespace WorkTask.DataAccess.Configurations
             builder.Property(x=> x.Price);
             builder.Property(x => x.Name);
             builder.HasMany(x=> x.OrderProducts).WithOne(x => x.Product).HasForeignKey(x=> x.ProductId);
+            builder.HasAlternateKey(x => x.Name);
         }
     }
 }

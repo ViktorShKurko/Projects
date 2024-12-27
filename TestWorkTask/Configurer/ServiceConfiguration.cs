@@ -6,6 +6,8 @@ using WorkTask.Application.Order.Services;
 using WorkTask.DataAccess.Repositories;
 using WorkTask.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using WorkTask.AppServices.User.Repositories;
+using WorkTask.AppServices.Product.Repositories;
 
 namespace TestWorkTask.Configurer
 {
@@ -19,10 +21,12 @@ namespace TestWorkTask.Configurer
             configuration.SetBasePath(Directory.GetCurrentDirectory());
             configuration.AddJsonFile("appsettings.json");
             var config = configuration.Build();
-
+            var connectionString = config.GetConnectionString("DefaultConnection");
             IServiceCollection services = new ServiceCollection();
-            services.AddDbContext<WorkTaskDbContext>(options => options.UseSqlServer(config.GetConnectionString("SecondConnection")));
+            services.AddDbContext<WorkTaskDbContext>(options => options.UseSqlServer(connectionString));
             services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IOrderService, OrderService>();
 

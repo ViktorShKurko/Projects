@@ -24,19 +24,22 @@ namespace WorkTask.Application.Order.Services
             _userRepository = userRepository;
         }
 
-        public async Task<long> CreateAsync(OrderModel order, CancellationToken cancellationToken)
+        public async Task<long> CreateOrUpdateAsync(OrderModel order, CancellationToken cancellationToken)
         {
-            order.User = await UserValidationsAsync(order.User);
+            order.User = await GeExistDataIfUserExist(order.User);
             order.Products = (ProductModel[]?)await ProductsValidationsAsync(order.Products);
+
+
             return await _orderRepository.AddAsync(order);
         }
 
         private async Task<ICollection<ProductModel>> ProductsValidationsAsync(ICollection<ProductModel> products) 
         {
+            //
             foreach (var productDto in products)
             {
-                var productId = await _productRepository.GetProductIdByName(productDto.Name);
-                if (productId != null && productId != 0) 
+                var productId = await _productRepository.GetProductIdByName(productDto.Name); //TPO
+                if (productId != 0) 
                 {
                     productDto.Id = productId.Value;
                 }
@@ -45,20 +48,31 @@ namespace WorkTask.Application.Order.Services
             return products;
         }
 
-        private async Task<UserModel> UserValidationsAsync(UserModel user) 
+        private async Task<UserModel> GeExistDataIfUserExist(UserModel user) 
         {
-            var userId = await _userRepository.GetIdByMail(user.Email);
-            if (userId != null && userId != 0) 
-            {
-                user.Id = userId.Value;
-            }
-
+            user.Id = await _userRepository.GetIdByMail(user.Email);
             return user;
         }
+
+        public async Task<bool> CreateOrdersAsync(ICollection<OrderModel> orders)
+        {
+            var users = orders.Select(u => u.User).ToList();
+
+            await _userRepository.AddRangeAsync(users);
+
+            var products = orders.SelectMany(p => p.Products).ToList();
+
+            await _productRepository.AddRangeAsync(products);
+
+            await _orderRepository.AddRangeAsync(orders);
+            return true;
+        }
+
 
         public async Task<OrderModel> GetByIdAsync(long id)
         {
             return await _orderRepository.GetByIdAsync(id);
         }
+
     }
 }

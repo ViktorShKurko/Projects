@@ -44,5 +44,12 @@ namespace WorkTask.AppServices.Product.Repositories
         /// <returns>Товар.</returns>
         Task<long?> GetProductIdByName(string name);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productModels"></param>
+        /// <returns></returns>
+        Task AddRangeAsync(ICollection<ProductModel> productModels);
+
     }
 }

@@ -21,6 +21,13 @@ namespace WorkTask.AppServices.User.Repositories
         /// </summary>
         /// <param name="mail">Email пользователя.</param>
         /// <returns></returns>
-        Task<long?> GetIdByMail(string mail);
+        Task<long> GetIdByMail(string mail);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
+        Task AddRangeAsync(ICollection<UserModel> users);
     }
 }

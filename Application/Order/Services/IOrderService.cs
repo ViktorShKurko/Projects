@@ -14,7 +14,7 @@ namespace WorkTask.Application.Order.Services
         /// </summary>
         /// <param name="order">Данные о заказе.</param>
         /// <returns>Идентификатор заказа.</returns>
-        Task<long> CreateAsync(OrderModel order,CancellationToken cancellationToken);
+        Task<long> CreateOrUpdateAsync(OrderModel order,CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить заказ по идентификатору.
@@ -22,5 +22,12 @@ namespace WorkTask.Application.Order.Services
         /// <param name="id">Идентификатор заказа.</param>
         /// <returns>Заказ</returns>
         Task<OrderModel> GetByIdAsync(long id);
+
+        /// <summary>
+        /// Добавить список заказов.
+        /// </summary>
+        /// <param name="orders">Список заказов.</param>
+        /// <returns></returns>
+        Task<bool> CreateOrdersAsync(ICollection<OrderModel> orders);
     }
 }

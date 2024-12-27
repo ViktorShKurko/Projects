@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using TestWorkTask.Models;
+﻿using TestWorkTask.Models;
 
 namespace WorkTask.Application.Order.Repositories
 {
-
     public interface IOrderRepository
     {
         /// <summary>
@@ -38,6 +31,20 @@ namespace WorkTask.Application.Order.Repositories
         /// <param name="id">Идентификатор.</param>
         /// <returns></returns>
         Task<OrderModel> GetByIdAsync(long id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ordesId"></param>
+        /// <returns></returns>
+        ICollection<OrderModel> GetByIds(ICollection<long> ordesId);
+
+        /// <summary>
+        /// Добавить список.
+        /// </summary>
+        /// <param name="orders">Список добавляемых элементов.</param>
+        /// <returns></returns>
+        Task AddRangeAsync(ICollection<OrderModel> orders);
     }
 }
                                                                                                                                             
