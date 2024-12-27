@@ -26,14 +26,21 @@ namespace WorkTask.Application.Order.Services
 
         public async Task<long> CreateOrUpdateAsync(OrderModel order, CancellationToken cancellationToken)
         {
+            var isExist = _orderRepository.IsExist(order.Id);
             order.User = await GeExistDataIfUserExist(order.User);
-            order.Products = (ProductModel[]?)await ProductsValidationsAsync(order.Products);
+            order.Products = (ProductModel[]?)await GetProductIdIfExist(order.Products);
 
+            if (!isExist) 
+            {
+                await _orderRepository.AddAsync(order);
+            }
+            else 
+                await _orderRepository.UpdateAsync(order);
 
-            return await _orderRepository.AddAsync(order);
+            return order.Id;
         }
 
-        private async Task<ICollection<ProductModel>> ProductsValidationsAsync(ICollection<ProductModel> products) 
+        private async Task<ICollection<ProductModel>> GetProductIdIfExist(ICollection<ProductModel> products) 
         {
             //
             foreach (var productDto in products)
@@ -64,7 +71,12 @@ namespace WorkTask.Application.Order.Services
 
             await _productRepository.AddRangeAsync(products);
 
+
+
             await _orderRepository.AddRangeAsync(orders);
+
+// ------------------------------------------------------------------------
+            await _orderRepository.UpdateRangeAsync(orders);
             return true;
         }
 

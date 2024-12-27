@@ -13,6 +13,8 @@ namespace WorkTask.DataAccess.Configurations
             builder.Property(x => x.Reistered);
             builder.HasOne(x=> x.User).WithMany(x=> x.Orders).HasForeignKey(x => x.UserId).IsRequired();
             builder.HasMany(x => x.Products).WithOne(x => x.Order).HasForeignKey(x=> x.OrderId).IsRequired();
+
+            builder.Navigation(x => x.Products).AutoInclude();
         }
     }
 }

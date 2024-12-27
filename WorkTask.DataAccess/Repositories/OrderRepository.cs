@@ -18,12 +18,11 @@ namespace WorkTask.DataAccess.Repositories
 
         public async Task<long> AddAsync(OrderModel orderDto)
         {
-            Order order = await _repository.GetByIdAsync(orderDto.Id, new CancellationToken());
+            bool isExist = _repository.GetAll().Any(x => x.Id == orderDto.Id);
 
-            if (order == null)
+            if (!isExist)
             {
-                order = OrderMapper.ToOrder(orderDto);
-                await _repository.AddAsync(order, new CancellationToken());
+                await _repository.AddAsync(OrderMapper.ToOrder(orderDto), new CancellationToken());
             }
 
             return orderDto.Id;
@@ -32,21 +31,22 @@ namespace WorkTask.DataAccess.Repositories
         public async Task<OrderModel> GetByIdAsync(long id)
         {
             var order = await _repository.GetByIdAsync(id, new CancellationToken());
-            OrderModel orderModel = null;
-            if (order == null) 
+            OrderModel orderDto = null;
+            if (order != null) 
             {
-                
+                orderDto = OrderMapper.ToOrderDto(order);
             }
 
-            return orderModel;
+            return orderDto;
         }
 
         public async Task UpdateAsync(OrderModel orderDto)
         {
-            var order = await _repository.GetByIdAsync(orderDto.Id, new CancellationToken());
+            var order = _repository.GetAll().FirstOrDefault(x=> x.Id == orderDto.Id);
             if (order != null) 
             {
-                await _repository.UpdateAsync(OrderMapper.ToOrder(orderDto), new CancellationToken()); // To order
+                order = OrderMapper.ToOrder(orderDto, order);
+                await _repository.UpdateAsync(OrderMapper.ToOrder(orderDto, order), new CancellationToken());
             }
         }
 
@@ -56,7 +56,7 @@ namespace WorkTask.DataAccess.Repositories
 
             if (order != null) 
             {
-              await _repository.DeleteAsync(id,new CancellationToken());
+               await _repository.DeleteAsync(id,new CancellationToken());
             }
         }
 
@@ -73,6 +73,7 @@ namespace WorkTask.DataAccess.Repositories
             }
 
             await _repository.AddRangeAsync(newOrders);
+
         }
 
         public ICollection<OrderModel> GetByIds(ICollection<long> ordesId)
@@ -80,6 +81,17 @@ namespace WorkTask.DataAccess.Repositories
             var existOrders = _repository.GetAll().Where(x => ordesId.Contains(x.Id)).ToList();
 
             return null;
+        }
+
+        public async Task UpdateRangeAsync(ICollection<OrderModel> orderDtos)
+        {
+            var orders = OrderMapper.ToOrdersList(orderDtos);
+            await _repository.UpdateRangeAsync(orders, new CancellationToken());
+        }
+
+        public bool IsExist(long orderId)
+        {
+            return _repository.GetAll().Any(x => x.Id == orderId);
         }
     }
 }

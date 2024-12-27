@@ -47,6 +47,14 @@ namespace Infrastucture
         Task UpdateAsync(TEntity entity, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Обновление набора.
+        /// </summary>
+        /// <param name="entities">Коллекция елементов сущности.</param>
+        /// <param name="cancellationToken">Токен отмены.</param>
+        /// <returns></returns>
+        Task UpdateRangeAsync(ICollection<TEntity> entities, CancellationToken cancellationToken);
+
+        /// <summary>
         /// Удаление.
         /// </summary>
         /// <param name="id">Идентификатор.</param>

@@ -1,23 +1,25 @@
 ﻿using Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using TestWorkTask.Models;
 
 namespace WorkTask.DataAccess.Mappers
 {
     internal class ProductMapper
     {
-        public static Product ToProduct(ProductModel productDto) 
+        public static Product ToProduct(ProductModel productDto, Product attachProduct = null) 
         {
-            return new Product
-            {
-                Id = productDto.Id,
-                Name = productDto.Name,
-                Price = productDto.Price
-            };
+            Product product = attachProduct ?? new Product() { Name = "" };
+            product.Id = productDto.Id;
+            product.Name = productDto.Name;
+            product.Price = productDto.Price;
+
+            return product;
         }
 
         public static ProductModel ToProductDto(Product product) 

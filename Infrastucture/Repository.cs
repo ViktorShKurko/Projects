@@ -47,6 +47,7 @@ namespace Infrastucture
         {
             return DbSet;
         }
+
         public IQueryable<TEntity> GetByPredicate(Expression<Func<TEntity,bool>> predicat)
         {
            // var expression = Expression.Lambda<Func<TEntity, bool>>(Expression.Call(predicat.Method));
@@ -56,6 +57,12 @@ namespace Infrastucture
         public async Task<TEntity> GetByIdAsync(long Id, CancellationToken cancellationToken)
         {
             return await DbSet.FindAsync(Id, cancellationToken);
+        }
+
+        public async Task UpdateRangeAsync(ICollection<TEntity> entities, CancellationToken cancellationToken)
+        {
+            DbSet.UpdateRange(entities);
+            await DbContext.SaveChangesAsync(new CancellationToken());
         }
     }
 }

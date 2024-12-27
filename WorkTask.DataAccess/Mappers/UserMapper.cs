@@ -10,9 +10,11 @@ namespace WorkTask.DataAccess.Mappers
 {
     internal class UserMapper
     {
-        public static User ToUser(UserModel userDto) 
+        public static User ToUser(UserModel userDto, User existingUser = null) 
         {
+           
             var names = userDto.FullName.Split(' ');
+
             return new User 
             { 
                 Id = userDto.Id, 

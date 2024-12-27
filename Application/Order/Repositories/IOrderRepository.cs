@@ -19,6 +19,13 @@ namespace WorkTask.Application.Order.Repositories
         Task UpdateAsync(OrderModel model);
 
         /// <summary>
+        /// Обновить данные заказов.
+        /// </summary>
+        /// <param name="orderDtos">Список заказов.</param>
+        /// <returns></returns>
+        Task UpdateRangeAsync(ICollection<OrderModel> orderDtos);
+
+        /// <summary>
         /// Удалить заказ.
         /// </summary>
         /// <param name="id">Идентификатор заказа.</param>
@@ -31,6 +38,13 @@ namespace WorkTask.Application.Order.Repositories
         /// <param name="id">Идентификатор.</param>
         /// <returns></returns>
         Task<OrderModel> GetByIdAsync(long id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        bool IsExist(long orderId);
 
         /// <summary>
         /// 
