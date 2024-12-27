@@ -22,7 +22,7 @@ internal class Program
         // string data = File.ReadAllText(path);
         string data = File.ReadAllText(path);
 
-        var orders = XmlHelper.Deserialize<OrderModel>(data);
+        var orders = XmlHelper.Deserialize<OrdersModel>(data);
         Console.WriteLine(orders);
 
         var servicesProvider = ServiceConfiguration.Build();
@@ -31,8 +31,8 @@ internal class Program
         var sw = new Stopwatch();
         sw.Start();
 
-        long createdOrderId = orderService.CreateOrUpdateAsync(orders, new CancellationToken()).Result;
-        //var d = orderService.CreateOrdersAsync(orders.Orders).Result;
+        //long createdOrderId = orderService.CreateOrUpdateAsync(orders, new CancellationToken()).Result;
+        var d = orderService.CreateOrdersAsync(orders.Orders).Result;
         sw.Stop();
         Console.WriteLine(sw.Elapsed);
         //foreach (var order in orders.Orders)

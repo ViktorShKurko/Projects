@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Infrastucture;
+using Microsoft.EntityFrameworkCore;
 using TestWorkTask.Models;
 using WorkTask.Application.Order.Repositories;
 using WorkTask.DataAccess.Mappers;
@@ -73,7 +74,6 @@ namespace WorkTask.DataAccess.Repositories
             }
 
             await _repository.AddRangeAsync(newOrders);
-
         }
 
         public ICollection<OrderModel> GetByIds(ICollection<long> ordesId)
@@ -85,7 +85,9 @@ namespace WorkTask.DataAccess.Repositories
 
         public async Task UpdateRangeAsync(ICollection<OrderModel> orderDtos)
         {
-            var orders = OrderMapper.ToOrdersList(orderDtos);
+            var orders = await _repository.GetAll().Where(x => orderDtos.Select(o => o.Id).Contains(x.Id)).ToListAsync();
+
+            orders = OrderMapper.ToOrdersList(orderDtos,orders);
             await _repository.UpdateRangeAsync(orders, new CancellationToken());
         }
 

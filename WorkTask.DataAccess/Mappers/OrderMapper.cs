@@ -25,15 +25,15 @@ namespace WorkTask.DataAccess.Mappers
             return order;
         }
 
-        public static List<Order> ToOrdersList(IEnumerable<OrderModel> ordersDto) 
+        public static List<Order> ToOrdersList(IEnumerable<OrderModel> ordersDto, ICollection<Order> attachOrders = null) 
         {
-            var orders = new List<Order>();
+            var orders = attachOrders ?? new List<Order>();
             foreach (var orderDto in ordersDto) 
             {
-                orders.Add(ToOrder(orderDto));
+                orders.Add(ToOrder(orderDto, attachOrders.FirstOrDefault(x=> x.Id == orderDto.Id)));
             }
 
-            return orders;
+            return orders.ToList();
         }
 
         public static OrderProduct ToOrderProduct(ProductModel productDto, OrderProduct attachdOrderProduct = null) 

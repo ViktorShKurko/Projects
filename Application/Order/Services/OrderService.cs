@@ -71,11 +71,8 @@ namespace WorkTask.Application.Order.Services
 
             await _productRepository.AddRangeAsync(products);
 
-
-
             await _orderRepository.AddRangeAsync(orders);
 
-// ------------------------------------------------------------------------
             await _orderRepository.UpdateRangeAsync(orders);
             return true;
         }
