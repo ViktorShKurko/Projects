@@ -8,14 +8,14 @@ namespace WorkTask.Application.Order.Repositories
         /// Добавить заказ.
         /// </summary>
         /// <param name="model">Данные о заказе.</param>
-        /// <returns>Идентификатор заказа</returns>
+        /// <returns>Идентификатор заказа.</returns>
         Task<long> AddAsync(OrderModel model);
 
         /// <summary>
         /// Обновить данные заказа.
         /// </summary>
         /// <param name="model">Данные о заказе.</param>
-        /// <returns></returns>
+        /// <returns>Идентификатор заказа.</returns>
         Task UpdateAsync(OrderModel model);
 
         /// <summary>
@@ -36,21 +36,21 @@ namespace WorkTask.Application.Order.Repositories
         /// Возвращает заказ по идентификатору.
         /// </summary>
         /// <param name="id">Идентификатор.</param>
-        /// <returns></returns>
+        /// <returns>Заказ.</returns>
         Task<OrderModel> GetByIdAsync(long id);
 
         /// <summary>
-        /// 
+        /// Признак существования заказа в БД.
         /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
+        /// <param name="orderId">Идентификатор заказа.</param>
+        /// <returns>Заказ есть в БД - true, заказа нет в БД - false.</returns>
         bool IsExist(long orderId);
 
         /// <summary>
-        /// 
+        /// Возвращает лист заказов по идентификаторам. 
         /// </summary>
-        /// <param name="ordesId"></param>
-        /// <returns></returns>
+        /// <param name="ordesId">Идентификаторы заказов.</param>
+        /// <returns>Лист заказов.</returns>
         ICollection<OrderModel> GetByIds(ICollection<long> ordesId);
 
         /// <summary>

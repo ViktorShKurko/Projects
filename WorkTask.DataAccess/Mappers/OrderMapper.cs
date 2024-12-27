@@ -10,6 +10,12 @@ namespace WorkTask.DataAccess.Mappers
 {
     internal class OrderMapper
     {
+        /// <summary>
+        /// Мапит из OrderModel в Order
+        /// </summary>
+        /// <param name="orderDto">обьект полученных данных заказа Dto</param>
+        /// <param name="attachOrder">Обьект данных из базы.Который трэкается EF(проверяется на изменения)</param>
+        /// <returns></returns>
         public static Order ToOrder(OrderModel orderDto, Order attachOrder = null) 
         {
             var userDto = orderDto.User;
@@ -25,6 +31,12 @@ namespace WorkTask.DataAccess.Mappers
             return order;
         }
 
+        /// <summary>
+        /// Мап листа OrderModel(Dto) в лист Order(доменая сущность)
+        /// </summary>
+        /// <param name="ordersDto">Лист обьектов полученных заказов Dto</param>
+        /// <param name="attachOrders">Лист обьектов Order отслеживаемых EF</param>
+        /// <returns>Лист обьектов Order с данными из OrderModel</returns>
         public static List<Order> ToOrdersList(IEnumerable<OrderModel> ordersDto, ICollection<Order> attachOrders = null) 
         {
             var orders = attachOrders ?? new List<Order>();
@@ -36,6 +48,12 @@ namespace WorkTask.DataAccess.Mappers
             return orders.ToList();
         }
 
+        /// <summary>
+        /// Мап ProductModel в OrderProduct
+        /// </summary>
+        /// <param name="productDto">Полученые данные товара</param>
+        /// <param name="attachdOrderProduct">Отслеживаемый обьект товара из БД</param>
+        /// <returns>OrderProduct с данными из ProductModel</returns>
         public static OrderProduct ToOrderProduct(ProductModel productDto, OrderProduct attachdOrderProduct = null) 
         {
             OrderProduct orderProduct = attachdOrderProduct ?? new OrderProduct();
@@ -46,6 +64,12 @@ namespace WorkTask.DataAccess.Mappers
             return orderProduct;
         }
 
+        /// <summary>
+        /// Мап листа ProductModel в лист OrderProduct
+        /// </summary>
+        /// <param name="productDtos">Лист полученных данных о товарах</param>
+        /// <param name="products">Лист отслеживаемых обьектов их БД</param>
+        /// <returns></returns>
         public static List<OrderProduct> ToOrderProductList(IEnumerable<ProductModel> productDtos, List<OrderProduct> products = null) 
         {
             var result = products ?? new List<OrderProduct>();

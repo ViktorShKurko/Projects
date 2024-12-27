@@ -11,6 +11,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        // путь к файлу с загружаемыми данными
         string path = Path.Combine(Directory.GetCurrentDirectory(), @"TestDataRes\TestData.xml");
 
         if (!File.Exists(path)) 
@@ -28,18 +29,20 @@ internal class Program
         var servicesProvider = ServiceConfiguration.Build();
         var orderService = servicesProvider.GetService<IOrderService>();
 
-        var sw = new Stopwatch();
-        sw.Start();
+        // НЕ работает с дубликатами
+        //var sw = new Stopwatch();
+        //sw.Start();
+        //var d = orderService.CreateOrdersAsync(orders.Orders).Result;
+        //sw.Stop();
+        //Console.WriteLine(sw.Elapsed);
 
-        //long createdOrderId = orderService.CreateOrUpdateAsync(orders, new CancellationToken()).Result;
-        var d = orderService.CreateOrdersAsync(orders.Orders).Result;
-        sw.Stop();
-        Console.WriteLine(sw.Elapsed);
-        //foreach (var order in orders.Orders)
-        //{
-        //    long createdOrderId = orderService.CreateAsync(order, new CancellationToken()).Result;
-
-        //    Console.WriteLine(createdOrderId);
-        //}
+        var sw1 = new Stopwatch();
+        sw1.Start();
+        foreach (var order in orders.Orders)
+        {
+            long createdOrderId = orderService.CreateOrUpdateAsync(order, new CancellationToken()).Result;
+        }
+        sw1.Stop();
+        Console.WriteLine(sw1.Elapsed);
     }
 }

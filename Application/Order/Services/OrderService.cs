@@ -30,22 +30,28 @@ namespace WorkTask.Application.Order.Services
             order.User = await GeExistDataIfUserExist(order.User);
             order.Products = (ProductModel[]?)await GetProductIdIfExist(order.Products);
 
-            if (!isExist) 
+            if (!isExist)
             {
                 await _orderRepository.AddAsync(order);
             }
-            else 
+            else
+            {
                 await _orderRepository.UpdateAsync(order);
+            }
 
             return order.Id;
         }
 
+        /// <summary>
+        /// Добавляет идентификатор товара если он есть в БД
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns></returns>
         private async Task<ICollection<ProductModel>> GetProductIdIfExist(ICollection<ProductModel> products) 
         {
-            //
             foreach (var productDto in products)
             {
-                var productId = await _productRepository.GetProductIdByName(productDto.Name); //TPO
+                var productId = await _productRepository.GetProductIdByName(productDto.Name);
                 if (productId != 0) 
                 {
                     productDto.Id = productId.Value;
@@ -55,14 +61,20 @@ namespace WorkTask.Application.Order.Services
             return products;
         }
 
+        /// <summary>
+        ///  Добавляет идентификатор пользователя если он есть в БД
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private async Task<UserModel> GeExistDataIfUserExist(UserModel user) 
         {
             user.Id = await _userRepository.GetIdByMail(user.Email);
             return user;
         }
-
+        
         public async Task<bool> CreateOrdersAsync(ICollection<OrderModel> orders)
         {
+            //TODO: Переделать метод CreateOrdersAsync, чтоб он мог работать с дубликатами.
             var users = orders.Select(u => u.User).ToList();
 
             await _userRepository.AddRangeAsync(users);
@@ -76,7 +88,6 @@ namespace WorkTask.Application.Order.Services
             await _orderRepository.UpdateRangeAsync(orders);
             return true;
         }
-
 
         public async Task<OrderModel> GetByIdAsync(long id)
         {

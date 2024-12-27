@@ -10,7 +10,7 @@ namespace WorkTask.Application.Order.Services
     public interface IOrderService
     {
         /// <summary>
-        /// Создание нового заказа.
+        /// Создание или обновление заказа.
         /// </summary>
         /// <param name="order">Данные о заказе.</param>
         /// <returns>Идентификатор заказа.</returns>
