@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using WorkTask.AppServices.User.Repositories;
 using WorkTask.AppServices.Product.Repositories;
 using Microsoft.Extensions.Logging;
+using TestWorkTask.Models;
+using WorkTask.AppServices.Handlers;
+using FluentValidation;
+using WorkTask.AppServices.Validators;
 
 namespace TestWorkTask.Configurer
 {
@@ -30,6 +34,8 @@ namespace TestWorkTask.Configurer
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddSingleton<IValidator<OrderModel>, OrderValidator>();
+            services.AddScoped<Handler<OrderModel>, OrderHandler>();
 
             return services.BuildServiceProvider();
         }

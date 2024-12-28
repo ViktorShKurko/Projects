@@ -6,11 +6,13 @@ using TestWorkTask.Configurer;
 using TestWorkTask.Helpers;
 using TestWorkTask.Models;
 using WorkTask.Application.Order.Services;
+using WorkTask.AppServices.Handlers;
 
 internal class Program
 {
     private static async Task Main(string[] args)
     {
+
         // путь к файлу с загружаемыми данными
         string path = Path.Combine(Directory.GetCurrentDirectory(), @"TestDataRes\Data100.xml");
 
@@ -27,14 +29,19 @@ internal class Program
         Console.WriteLine(orders);
 
         var servicesProvider = ServiceConfiguration.Build();
-        var orderService = servicesProvider.GetService<IOrderService>();
 
-        var sw = new Stopwatch();
-        sw.Start();
-        await orderService.CreateOrdersWithBulkAsync(orders.Orders);
-        //var d = await orderService.CreateOrdersAsync(orders.Orders);
-        sw.Stop();
-        Console.WriteLine(sw.Elapsed);
+        var orderHandler = servicesProvider.GetService<Handler<OrderModel>>();
+
+        await orderHandler.ProcessFileAsync(path);
+
+        //var orderService = servicesProvider.GetService<IOrderService>();
+
+        //var sw = new Stopwatch();
+        //sw.Start();
+        //await orderService.CreateOrdersWithBulkAsync(orders.Orders);
+        ////var d = await orderService.CreateOrdersAsync(orders.Orders);
+        //sw.Stop();
+        //Console.WriteLine(sw.Elapsed);
 
         //var sw1 = new Stopwatch();
         //sw1.Start();
