@@ -26,6 +26,13 @@ namespace WorkTask.Application.Order.Repositories
         Task UpdateRangeAsync(ICollection<OrderModel> orderDtos);
 
         /// <summary>
+        /// Массовое создание и обновление.
+        /// </summary>
+        /// <param name="ordersDto">Список заказов.</param>
+        /// <returns></returns>
+        Task InsertOrUpdateAsync(ICollection<OrderModel> ordersDto);
+
+        /// <summary>
         /// Удалить заказ.
         /// </summary>
         /// <param name="id">Идентификатор заказа.</param>

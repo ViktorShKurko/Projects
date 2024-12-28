@@ -95,5 +95,11 @@ namespace WorkTask.DataAccess.Repositories
         {
             return _repository.GetAll().Any(x => x.Id == orderId);
         }
+
+        public async Task InsertOrUpdateAsync(ICollection<OrderModel> ordersDto)
+        {
+            var orders = OrderMapper.ToOrdersList(ordersDto);
+            await _repository.BulkMergeAsync(orders);
+        }
     }
 }

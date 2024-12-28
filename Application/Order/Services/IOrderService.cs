@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestWorkTask.Models;
+﻿using TestWorkTask.Models;
 
 namespace WorkTask.Application.Order.Services
 {
@@ -24,7 +19,7 @@ namespace WorkTask.Application.Order.Services
         Task<OrderModel> GetByIdAsync(long id);
 
         /// <summary>
-        /// Добавить список заказов.
+        /// Массове добавление и обновление заказов.
         /// </summary>
         /// <param name="orders">Список заказов.</param>
         /// <returns></returns>

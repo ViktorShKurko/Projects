@@ -30,19 +30,19 @@ internal class Program
         var orderService = servicesProvider.GetService<IOrderService>();
 
         // НЕ работает с дубликатами
-        //var sw = new Stopwatch();
-        //sw.Start();
-        //var d = orderService.CreateOrdersAsync(orders.Orders).Result;
-        //sw.Stop();
-        //Console.WriteLine(sw.Elapsed);
+        var sw = new Stopwatch();
+        sw.Start();
+        var d = orderService.CreateOrdersAsync(orders.Orders).Result;
+        sw.Stop();
+        Console.WriteLine(sw.Elapsed);
 
-        var sw1 = new Stopwatch();
-        sw1.Start();
-        foreach (var order in orders.Orders)
-        {
-            long createdOrderId = orderService.CreateOrUpdateAsync(order, new CancellationToken()).Result;
-        }
-        sw1.Stop();
-        Console.WriteLine(sw1.Elapsed);
+        //var sw1 = new Stopwatch();
+        //sw1.Start();
+        //foreach (var order in orders.Orders)
+        //{
+        //    long createdOrderId = orderService.CreateOrUpdateAsync(order, new CancellationToken()).Result;
+        //}
+        //sw1.Stop();
+        //Console.WriteLine(sw1.Elapsed);
     }
 }

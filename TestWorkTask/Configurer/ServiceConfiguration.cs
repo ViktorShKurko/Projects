@@ -22,7 +22,7 @@ namespace TestWorkTask.Configurer
             configuration.SetBasePath(Directory.GetCurrentDirectory());
             configuration.AddJsonFile("appsettings.json");
             var config = configuration.Build();
-            var connectionString = config.GetConnectionString("DefaultConnection");
+            var connectionString = config.GetConnectionString("SecondConnection");
             IServiceCollection services = new ServiceCollection();
             services.AddDbContext<WorkTaskDbContext>(options => options.UseSqlServer(connectionString).LogTo(Console.WriteLine, LogLevel.Information));
             services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));

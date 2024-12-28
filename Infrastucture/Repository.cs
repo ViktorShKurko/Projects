@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq.Expressions;
 using System.Threading;
@@ -63,6 +64,11 @@ namespace Infrastucture
         {
             DbSet.UpdateRange(entities);
             await DbContext.SaveChangesAsync(new CancellationToken());
+        }
+
+        public async Task BulkMergeAsync(ICollection<TEntity> entities)
+        {
+           await DbContext.BulkInsertOrUpdateAsync(entities);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace WorkTask.DataAccess.Mappers
             var orders = attachOrders ?? new List<Order>();
             foreach (var orderDto in ordersDto) 
             {
-                orders.Add(ToOrder(orderDto, attachOrders.FirstOrDefault(x=> x.Id == orderDto.Id)));
+                orders.Add(ToOrder(orderDto, attachOrders?.FirstOrDefault(x=> x.Id == orderDto.Id)));
             }
 
             return orders.ToList();
