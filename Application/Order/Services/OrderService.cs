@@ -74,37 +74,52 @@ namespace WorkTask.Application.Order.Services
         
         public async Task<bool> CreateOrdersAsync(ICollection<OrderModel> orders)
         {
-            //TODO: Переделать метод CreateOrdersAsync, чтоб он мог работать с дубликатами.
+            orders = NormalisationOrdersList(orders);
             var users = orders.Select(u => u.User).ToList();
 
-            await _userRepository.AddRangeAsync(users);
+            await _userRepository.AddRangeAsync(users); // Массово добавляются пользователи т.к. могут быть дубликаты новых пользователей.
 
             var products = orders.SelectMany(p => p.Products).ToList();
 
-            await _productRepository.AddRangeAsync(products);
+            await _productRepository.AddRangeAsync(products); // Массово добавляются товары всех заказов т.к. могут быть дубликаты новых новых товаров.
+           
+            await _orderRepository.AddRangeAsync(orders);
+            await _orderRepository.UpdateRangeAsync(orders);
 
-            orders = NormalisationOrdersList(orders);
-            //  await _orderRepository.AddRangeAsync(orders);
-            await _orderRepository.InsertOrUpdateAsync(orders);
-         //   await _orderRepository.UpdateRangeAsync(orders);
             return true;
         }
 
-        private ICollection<OrderModel> NormalisationOrdersList(ICollection<OrderModel> ordersDto) 
+        public async Task CreateOrdersWithBulkAsync(ICollection<OrderModel> orders)
         {
+            orders = NormalisationOrdersList(orders);
+            var users = orders.Select(u => u.User).ToList();
+
+            await _userRepository.AddRangeAsync(users); // Массово добавляются пользователи т.к. могут быть дубликаты новых пользователей.
+
+            var products = orders.SelectMany(p => p.Products).ToList();
+
+            await _productRepository.AddRangeAsync(products); // Массово добавляются товары всех заказов т.к. могут быть дубликаты новых новых товаров.
+            await _orderRepository.InsertOrUpdateAsync(orders);
+        }
+
+        /// <summary>
+        /// Метод нормализации списка для дальнейшего массового добавления или обновления.
+        /// </summary>
+        /// <param name="ordersDto"></param>
+        /// <returns></returns>
+        private ICollection<OrderModel> NormalisationOrdersList(ICollection<OrderModel> ordersDto)
+        {
+            //1.Если есть в списке заказы с одним id то брать заказ с более поздей датой.
+            //2.Если дата одинаковая то брать один из.
             var orders = ordersDto.GroupBy(x => x.Id);
             var result = new List<OrderModel>();
             foreach (var order in orders)
             {
                 var maxReDate = order.Max(x => Convert.ToDateTime(x.CreatAt));
-                result.Add(order.FirstOrDefault(x=> Convert.ToDateTime(x.CreatAt) == maxReDate));
+                result.Add(order.FirstOrDefault(x => Convert.ToDateTime(x.CreatAt) == maxReDate));
             }
-
             return result;
         }
-
-        //1.Если есть в списке одинаковые то брать заказ с более поздей датой
-        //2.Если дата одинаковая то брать один из 
 
         public async Task<OrderModel> GetByIdAsync(long id)
         {

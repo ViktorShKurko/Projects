@@ -9,10 +9,10 @@ using WorkTask.Application.Order.Services;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static async Task Main(string[] args)
     {
         // путь к файлу с загружаемыми данными
-        string path = Path.Combine(Directory.GetCurrentDirectory(), @"TestDataRes\TestData.xml");
+        string path = Path.Combine(Directory.GetCurrentDirectory(), @"TestDataRes\Data100.xml");
 
         if (!File.Exists(path)) 
         {
@@ -29,10 +29,10 @@ internal class Program
         var servicesProvider = ServiceConfiguration.Build();
         var orderService = servicesProvider.GetService<IOrderService>();
 
-        // НЕ работает с дубликатами
         var sw = new Stopwatch();
         sw.Start();
-        var d = orderService.CreateOrdersAsync(orders.Orders).Result;
+        await orderService.CreateOrdersWithBulkAsync(orders.Orders);
+        //var d = await orderService.CreateOrdersAsync(orders.Orders);
         sw.Stop();
         Console.WriteLine(sw.Elapsed);
 

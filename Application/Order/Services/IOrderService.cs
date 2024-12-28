@@ -19,10 +19,17 @@ namespace WorkTask.Application.Order.Services
         Task<OrderModel> GetByIdAsync(long id);
 
         /// <summary>
-        /// Массове добавление и обновление заказов.
+        /// Массове добавление и обновление заказов. С использованием стандартных методов EF.
         /// </summary>
         /// <param name="orders">Список заказов.</param>
         /// <returns></returns>
         Task<bool> CreateOrdersAsync(ICollection<OrderModel> orders);
+
+        /// <summary>
+        /// Массове добавление и обновление заказов. С использованием расширения EFCore.BulkExtensions.
+        /// </summary>
+        /// <param name="orders">Список заказов.</param>
+        /// <returns></returns>
+        Task CreateOrdersWithBulkAsync(ICollection<OrderModel> orders);
     }
 }

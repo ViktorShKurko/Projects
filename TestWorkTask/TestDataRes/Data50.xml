@@ -34,7 +34,6 @@
       <name>Xiomi 122X</name>
       <price>42000.75</price>
     </product>
-    
     <user>
       <fio>Петров Виктор Семенович</fio>
       <email>xyz@email.com</email>
@@ -120,7 +119,7 @@
       <email>xyytyz@email.com</email>
     </user>
   </order>
-  
+
   <order>
     <no>1233</no>
     <reg_date>2018.11.09</reg_date>
@@ -620,7 +619,7 @@
       <email>xyyz@email.com</email>
     </user>
   </order>
-  
+
   <order>
     <no>1000001</no>
     <reg_date>2018.01.09</reg_date>
@@ -650,7 +649,7 @@
       <email>xyyz@email.com</email>
     </user>
   </order>
-  
+
   <order>
     <no>100024</no>
     <reg_date>2018.01.09</reg_date>
@@ -670,7 +669,7 @@
       <email>x123yyz@email.com</email>
     </user>
   </order>
-  
+
   <order>
     <no>100023</no>
     <reg_date>2018.01.09</reg_date>
@@ -690,8 +689,8 @@
       <email>x123yyzыв@email.com</email>
     </user>
   </order>
-  
-<order>
+
+  <order>
     <no>100022</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -729,7 +728,7 @@
       <email>x11223yyz@email.com</email>
     </user>
   </order>
-  
+
   <order>
     <no>100025</no>
     <reg_date>2018.01.09</reg_date>
@@ -749,7 +748,7 @@
       <email>x3123yyz@email.com</email>
     </user>
   </order>
-  
+
   <order>
     <no>100026</no>
     <reg_date>2018.01.09</reg_date>
@@ -769,7 +768,7 @@
       <email>x123yyz@email.com</email>
     </user>
   </order>
-  
+
   <order>
     <no>100027</no>
     <reg_date>2018.01.09</reg_date>
@@ -789,7 +788,7 @@
       <email>x123yyz@email.com</email>
     </user>
   </order>
-  
+
   <order>
     <no>100028</no>
     <reg_date>2018.01.09</reg_date>
@@ -809,7 +808,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-  
+
 
   <order>
     <no>100029</no>
@@ -830,7 +829,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100030</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -839,12 +838,12 @@
       <name>Xiomi 122X</name>
       <price>42000.75</price>
     </product>
-  <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 1212</name>
       <price>42000.75</price>
     </product>
-      <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 12X</name>
       <price>42000.75</price>
@@ -864,7 +863,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100028</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -873,12 +872,12 @@
       <name>Xiomi 122X</name>
       <price>42000.75</price>
     </product>
-  <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 1212</name>
       <price>42000.75</price>
     </product>
-      <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 12X</name>
       <price>42000.75</price>
@@ -898,7 +897,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100035</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -907,12 +906,12 @@
       <name>Xiomi 122X</name>
       <price>42000.75</price>
     </product>
-  <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 1212</name>
       <price>42000.75</price>
     </product>
-      <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 12X</name>
       <price>42000.75</price>
@@ -932,21 +931,21 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100034</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
-   <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 122X</name>
       <price>42000.75</price>
     </product>
-  <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 1212</name>
       <price>42000.75</price>
     </product>
-      <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 12X</name>
       <price>42000.75</price>
@@ -966,7 +965,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100036</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -985,7 +984,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100036</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -1004,7 +1003,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100037</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -1013,12 +1012,12 @@
       <name>Xiomi 122X</name>
       <price>42000.75</price>
     </product>
-  <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 1212</name>
       <price>42000.75</price>
     </product>
-      <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 12X</name>
       <price>42000.75</price>
@@ -1038,7 +1037,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100038</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -1057,7 +1056,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100039</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -1076,7 +1075,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100040</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -1085,12 +1084,12 @@
       <name>Xiomi 122X</name>
       <price>42000.75</price>
     </product>
-  <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 1212</name>
       <price>42000.75</price>
     </product>
-      <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 12X</name>
       <price>42000.75</price>
@@ -1110,7 +1109,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100041</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -1129,7 +1128,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100042</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -1148,7 +1147,7 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-<order>
+  <order>
     <no>100043</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
@@ -1234,7 +1233,7 @@
       <name>Xiomi 1212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 2222X</name>
       <price>42000.75</price>
@@ -1258,7 +1257,7 @@
       <name>Xiomi 1212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 2222X</name>
       <price>42000.75</price>
@@ -1282,7 +1281,7 @@
       <name>Xiomi 1212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 2222X</name>
       <price>42000.75</price>
@@ -1306,7 +1305,7 @@
       <name>Xiomi 1212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 2222X</name>
       <price>42000.75</price>
@@ -1325,12 +1324,12 @@
     <no>100050</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
-   <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomi 12212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomiне 2222X</name>
       <price>42000.75</price>
@@ -1354,7 +1353,7 @@
       <name>Xiomi 12212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomiне 2222X</name>
       <price>42000.75</price>
@@ -1378,7 +1377,7 @@
       <name>Xiomi 12212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomiне 2222X</name>
       <price>42000.75</price>
@@ -1412,7 +1411,7 @@
       <name>Xiomi 12212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomiне 2222X</name>
       <price>42000.75</price>
@@ -1446,7 +1445,7 @@
       <name>Xiomi 12212X</name>
       <price>42000.75</price>
     </product>
-     <product>
+    <product>
       <quantity>3</quantity>
       <name>Xiomiне 2222X</name>
       <price>42000.75</price>
@@ -1475,9 +1474,10 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
+  <!-- Дубликат  100054-->
   <order>
     <no>100054</no>
-    <reg_date>2018.01.09</reg_date>
+    <reg_date>2018.01.10</reg_date>
     <sum>126065.05</sum>
     <product>
       <quantity>200</quantity>
@@ -1489,13 +1489,34 @@
       <email>x123фывфyyz@email.com</email>
     </user>
   </order>
-  <order> 
-    <no>100054</no>
+
+  <order>
+    <no>100055</no>
     <reg_date>2018.01.09</reg_date>
     <sum>126065.05</sum>
     <product>
-      <quantity>200</quantity>
-      <name>Nonф3142</name>
+      <quantity>3</quantity>
+      <name>Xiomi 1212X</name>
+      <price>42000.75</price>
+    </product>
+    <product>
+      <quantity>20</quantity>
+      <name>Nonфыввame 3142</name>
+      <price>3.14</price>
+    </product>
+    <product>
+      <quantity>3</quantity>
+      <name>Xiomi 12212X</name>
+      <price>42000.75</price>
+    </product>
+    <product>
+      <quantity>3</quantity>
+      <name>Xiomiне 2222X</name>
+      <price>42000.75</price>
+    </product>
+    <product>
+      <quantity>20</quantity>
+      <name>Nonфы 3142</name>
       <price>3.14</price>
     </product>
     <user>
