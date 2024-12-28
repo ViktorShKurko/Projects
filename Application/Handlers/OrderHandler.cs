@@ -8,6 +8,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WorkTask.AppServices.Handlers
 {
+    /// <summary>
+    /// Обработчик данных о заказах
+    /// </summary>
     public class OrderHandler: Handler<OrderModel>
     {
         private readonly IOrderService _orderService;
@@ -27,9 +30,30 @@ namespace WorkTask.AppServices.Handlers
 
             var sw1 = new Stopwatch();
             sw1.Start();
-            await _orderService.CreateOrdersWithBulkAsync(orderData.Orders);
+            await UseBulkLoadAsync(orderData.Orders);
             sw1.Stop();
             Console.WriteLine($"Время выполнения запроса: {sw1.Elapsed}");
+        }
+
+        // Standart Update with Add
+        private async Task UseStandartCreateOrUpdateRangeAsync(ICollection<OrderModel> orderModels) 
+        {
+            await _orderService.CreateOrdersAsync(orderModels);
+        }
+
+        //  EFCore.BulkExtensions.
+        private async Task UseBulkLoadAsync(ICollection<OrderModel> orderModels) 
+        {
+            await _orderService.CreateOrdersWithBulkAsync(orderModels);
+        }
+
+        // Standart UpdateRange with AddRange
+        private async Task UseStandartCreateOrUpdateAsync(ICollection<OrderModel> orderModels) 
+        {
+            foreach (var order in orderModels)
+            {
+                await _orderService.CreateOrUpdateAsync(order, new CancellationToken());
+            }
         }
 
         protected override void ValidateData(ICollection<OrderModel> orders) 

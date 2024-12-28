@@ -18,7 +18,18 @@ namespace WorkTask.AppServices.Handlers
             return File.ReadAllText(path);
         }
 
+        /// <summary>
+        /// Процесс загрузки данных в базу.
+        /// </summary>
+        /// <param name="filePath">Путь к файлу с данными</param>
+        /// <returns></returns>
         public abstract Task ProcessFileAsync(string filePath);
+
+
+        /// <summary>
+        /// Валидация полученных данных.
+        /// </summary>
+        /// <param name="items"></param>
         protected abstract void ValidateData(ICollection<T> items);
         
     }
